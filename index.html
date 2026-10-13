@@ -214,8 +214,21 @@
                 return;
             }
 
-            outputBox.innerHTML = `Processing "<span style='color: #fff;'>${inputVal}</span>" via NovaAI Engine... <br><br><b>Status:</b> Safe & Secure. All local checks passed successfully!`;
-            
+            // AI robot response simulation
+            let response = "";
+            const lowerInput = inputVal.toLowerCase();
+
+            if (lowerInput.includes("hello") || lowerInput.includes("hi")) {
+                response = "Hello! I am NovaAI, your secure digital assistant. How can I help you today?";
+            } else if (lowerInput.includes("who are you")) {
+                response = "I am NovaAI, a Next-Gen Secure Guardrails & Control Hub. I operate locally on your device.";
+            } else if (lowerInput.includes("how are you")) {
+                response = "I am functioning perfectly within optimal security parameters. Thank you for asking!";
+            } else {
+                response = `Processing "${inputVal}"... As an AI, I am ready to assist you with secure data management.`;
+            }
+
+            outputBox.innerHTML = `NovaAI: <br><br> <span>${response}</span>`;
             document.getElementById("userInput").value = "";
         }
     </script>
