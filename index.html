@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaAI - Smart Hub</title>
+    <title>NovaAI - Custom Interface</title>
     <style>
         * {
             box-sizing: border-box;
@@ -37,9 +37,9 @@
         }
 
         .app-container {
-            width: 90%;
-            max-width: 800px;
-            height: 90vh;
+            width: 100%;
+            max-width: 900px;
+            height: 95vh;
             padding: 20px;
             z-index: 1;
             display: flex;
@@ -59,26 +59,35 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 20px;
+            position: relative;
         }
 
-        .header {
-            text-align: center;
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
-        .header h1 {
-            font-size: 40px;
-            background: linear-gradient(to right, #00f2fe, #4facfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-            font-weight: 800;
-            letter-spacing: 1px;
+        .profile-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.2s;
         }
 
-        .header p {
-            font-size: 14px;
-            color: #b3b9c1;
+        .profile-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #00f2fe;
         }
 
         .output-box {
@@ -159,74 +168,6 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
         }
-
-        .actions-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-
-        .checkbox-label input[type="checkbox"] {
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 6px;
-            background: rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-        }
-
-        .checkbox-label input[type="checkbox"]:checked {
-            background: #00f2fe;
-            border-color: #00f2fe;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-        }
-
-        .checkbox-label input[type="checkbox"]:checked::after {
-            content: '✓';
-            color: #000;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .icon-buttons {
-            display: flex;
-            gap: 12px;
-        }
-
-        .icon-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 18px;
-            transition: 0.2s;
-        }
-
-        .icon-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #00f2fe;
-        }
     </style>
 </head>
 <body>
@@ -235,30 +176,19 @@
 
     <div class="app-container">
         <div class="glass-card">
-            <div class="header">
-                <h1>NovaAI</h1>
-                <p>Next-Gen Secure Guardrails & Control Hub</p>
+            
+            <div class="top-row">
+                <button class="profile-btn" title="Account">👤</button>
             </div>
 
             <div class="output-box" id="outputBox">
-                <div class="message ai-message">Hello! I am NovaAI, your secure digital assistant. How can I help you today?</div>
+                <div class="message ai-message">Hello! I am your secure digital assistant. How can I help you today?</div>
             </div>
 
             <div class="input-section">
                 <div class="main-input-row">
                     <input type="text" id="userInput" placeholder="Ask me anything..." />
                     <button onclick="processAI()">Send</button>
-                </div>
-                
-                <div class="actions-row">
-                    <label class="checkbox-label">
-                        <input type="checkbox" checked> Active
-                    </label>
-                    
-                    <div class="icon-buttons">
-                        <button class="icon-btn" title="Add Profile">👤</button>
-                        <button class="icon-btn" title="Create New">➕</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -271,7 +201,6 @@
             
             if (inputVal === "") return;
 
-            // Append user message
             const userMsgDiv = document.createElement("div");
             userMsgDiv.className = "message user-message";
             userMsgDiv.innerText = inputVal;
@@ -280,17 +209,12 @@
             document.getElementById("userInput").value = "";
             outputBox.scrollTop = outputBox.scrollHeight;
 
-            // Simulate AI response
             setTimeout(() => {
                 let response = "";
                 const lowerInput = inputVal.toLowerCase();
 
-                if (lowerInput.includes("hello") || lowerInput.includes("hi")) {
-                    response = "Hello! I am NovaAI, your secure digital assistant. How can I help you today?";
-                } else if (lowerInput.includes("who are you")) {
-                    response = "I am NovaAI, a Next-Gen Secure Guardrails & Control Hub. I operate locally on your device.";
-                } else if (lowerInput.includes("how are you")) {
-                    response = "I am functioning perfectly within optimal security parameters.";
+                if (lowerInput.includes("what is ai") || lowerInput.includes("artificial intelligence")) {
+                    response = "Artificial Intelligence (AI) refers to the simulation of human intelligence in machines programmed to think and learn like humans. It involves tasks like problem-solving, reasoning, and learning.";
                 } else if (lowerInput.includes("code") || lowerInput.includes("generate")) {
                     response = "As a generative AI, I can generate code, draft content, and create various digital assets based on your specifications.";
                 } else {
