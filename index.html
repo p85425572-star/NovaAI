@@ -38,13 +38,13 @@
 
         .app-container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 800px;
+            height: 90vh;
             padding: 20px;
             z-index: 1;
-            height: 90vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
         }
 
         .glass-card {
@@ -53,19 +53,21 @@
             -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 28px;
-            padding: 35px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
             width: 100%;
-            max-width: 800px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 25px;
         }
 
         .header h1 {
-            font-size: 34px;
+            font-size: 40px;
             background: linear-gradient(to right, #00f2fe, #4facfe);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -75,15 +77,49 @@
         }
 
         .header p {
-            font-size: 13px;
+            font-size: 14px;
             color: #b3b9c1;
+        }
+
+        .output-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px;
+            font-size: 16px;
+            color: #fff;
+            flex: 1;
+            overflow-y: auto;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 16px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: rgba(0, 242, 254, 0.1);
+            align-self: flex-end;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            color: #fff;
+        }
+
+        .ai-message {
+            background: rgba(255, 255, 255, 0.05);
+            align-self: flex-start;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #00f2fe;
         }
 
         .input-section {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 20px;
         }
 
         .main-input-row {
@@ -93,10 +129,10 @@
 
         .main-input-row input {
             flex: 1;
-            padding: 15px 18px;
+            padding: 18px 22px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
+            border-radius: 18px;
             color: #fff;
             font-size: 14px;
             outline: none;
@@ -109,10 +145,10 @@
         }
 
         .main-input-row button {
-            padding: 15px 24px;
+            padding: 0 30px;
             background: linear-gradient(135deg, #00f2fe, #4facfe);
             border: none;
-            border-radius: 14px;
+            border-radius: 18px;
             color: #fff;
             font-weight: bold;
             cursor: pointer;
@@ -128,24 +164,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            padding: 0 10px;
         }
 
         .checkbox-label {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 12px;
+            gap: 10px;
+            font-size: 14px;
             color: #94a3b8;
             cursor: pointer;
         }
 
         .checkbox-label input[type="checkbox"] {
             appearance: none;
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
+            border-radius: 6px;
             background: rgba(0, 0, 0, 0.3);
             cursor: pointer;
             display: flex;
@@ -157,53 +193,39 @@
         .checkbox-label input[type="checkbox"]:checked {
             background: #00f2fe;
             border-color: #00f2fe;
-            box-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
         }
 
         .checkbox-label input[type="checkbox"]:checked::after {
             content: '✓';
             color: #000;
             font-weight: bold;
-            font-size: 10px;
+            font-size: 12px;
         }
 
         .icon-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .icon-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
             color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             transition: 0.2s;
         }
 
         .icon-btn:hover {
             background: rgba(255, 255, 255, 0.1);
             color: #00f2fe;
-        }
-
-        .output-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 14px;
-            padding: 18px;
-            font-size: 13px;
-            color: #00f2fe;
-            min-height: 80px;
-            max-height: 150px;
-            overflow-y: auto;
-            line-height: 1.6;
-            margin-top: 20px;
         }
     </style>
 </head>
@@ -218,10 +240,14 @@
                 <p>Next-Gen Secure Guardrails & Control Hub</p>
             </div>
 
+            <div class="output-box" id="outputBox">
+                <div class="message ai-message">Hello! I am NovaAI, your secure digital assistant. How can I help you today?</div>
+            </div>
+
             <div class="input-section">
                 <div class="main-input-row">
                     <input type="text" id="userInput" placeholder="Ask me anything..." />
-                    <button onclick="processAI()">Run NovaAI</button>
+                    <button onclick="processAI()">Send</button>
                 </div>
                 
                 <div class="actions-row">
@@ -235,10 +261,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="output-box" id="outputBox">
-                System Initialized. NovaAI is online, running securely.
-            </div>
         </div>
     </div>
 
@@ -247,28 +269,41 @@
             const inputVal = document.getElementById("userInput").value.trim();
             const outputBox = document.getElementById("outputBox");
             
-            if (inputVal === "") {
-                outputBox.innerHTML = "<span style='color: #ff4757;'>Please enter a query to process!</span>";
-                return;
-            }
+            if (inputVal === "") return;
 
-            let response = "";
-            const lowerInput = inputVal.toLowerCase();
+            // Append user message
+            const userMsgDiv = document.createElement("div");
+            userMsgDiv.className = "message user-message";
+            userMsgDiv.innerText = inputVal;
+            outputBox.appendChild(userMsgDiv);
 
-            if (lowerInput.includes("hello") || lowerInput.includes("hi")) {
-                response = "Hello! I am NovaAI, your secure digital assistant. How can I help you today?";
-            } else if (lowerInput.includes("who are you")) {
-                response = "I am NovaAI, a Next-Gen Secure Guardrails & Control Hub. I operate locally on your device.";
-            } else if (lowerInput.includes("how are you")) {
-                response = "I am functioning perfectly within optimal security parameters.";
-            } else if (lowerInput.includes("code") || lowerInput.includes("generate")) {
-                response = "As a generative AI, I can generate code, draft content, and create various digital assets based on your specifications.";
-            } else {
-                response = `Processing "${inputVal}"... I can assist by generating comprehensive solutions, code, and content tailored to your needs.`;
-            }
-
-            outputBox.innerHTML = `NovaAI: <br><br> <span>${response}</span>`;
             document.getElementById("userInput").value = "";
+            outputBox.scrollTop = outputBox.scrollHeight;
+
+            // Simulate AI response
+            setTimeout(() => {
+                let response = "";
+                const lowerInput = inputVal.toLowerCase();
+
+                if (lowerInput.includes("hello") || lowerInput.includes("hi")) {
+                    response = "Hello! I am NovaAI, your secure digital assistant. How can I help you today?";
+                } else if (lowerInput.includes("who are you")) {
+                    response = "I am NovaAI, a Next-Gen Secure Guardrails & Control Hub. I operate locally on your device.";
+                } else if (lowerInput.includes("how are you")) {
+                    response = "I am functioning perfectly within optimal security parameters.";
+                } else if (lowerInput.includes("code") || lowerInput.includes("generate")) {
+                    response = "As a generative AI, I can generate code, draft content, and create various digital assets based on your specifications.";
+                } else {
+                    response = `Processing "${inputVal}"... I can assist by generating comprehensive solutions, code, and content tailored to your needs.`;
+                }
+
+                const aiMsgDiv = document.createElement("div");
+                aiMsgDiv.className = "message ai-message";
+                aiMsgDiv.innerText = response;
+                outputBox.appendChild(aiMsgDiv);
+
+                outputBox.scrollTop = outputBox.scrollHeight;
+            }, 500);
         }
     </script>
 
