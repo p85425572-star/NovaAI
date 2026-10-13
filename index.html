@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaAI - Custom Interface</title>
+    <title>NovaAI - Dashboard</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,96 +13,106 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a0a16, #1a0f3a, #4a0072);
+            background: #090a10;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
             color: #fff;
-            position: relative;
             overflow: hidden;
         }
 
-        .bg-text {
-            position: absolute;
-            font-size: 10rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.02);
-            z-index: 0;
-            user-select: none;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            letter-spacing: 10px;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 900px;
-            height: 95vh;
-            padding: 20px;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
-            padding: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
-            width: 100%;
-            height: 100%;
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 260px;
+            background: #11131b;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            position: relative;
+            border-right: 1px solid #1c202e;
         }
 
-        .top-row {
+        .sidebar h2 {
+            font-size: 24px;
+            color: #00f2fe;
+            margin-bottom: 20px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            background: #1a1e29;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
             display: flex;
-            justify-content: flex-end;
             align-items: center;
-            margin-bottom: 10px;
+            gap: 12px;
         }
 
-        .profile-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 44px;
-            height: 44px;
+        .menu-item:hover, .menu-item.active {
+            background: #00f2fe;
+            color: #090a10;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Top Navigation Bar */
+        .top-bar {
+            background: #11131b;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1c202e;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: #1a1e29;
             border-radius: 50%;
-            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 18px;
-            transition: 0.2s;
+            border: 1px solid #00f2fe;
         }
 
-        .profile-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #00f2fe;
+        /* Dashboard View */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .output-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #11131b;
+            border: 1px solid #1c202e;
             border-radius: 20px;
-            padding: 24px;
+            padding: 30px;
             font-size: 16px;
-            color: #fff;
+            color: #e2e8f0;
             flex: 1;
             overflow-y: auto;
             line-height: 1.6;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         .message {
@@ -119,31 +129,32 @@
         }
 
         .ai-message {
-            background: rgba(255, 255, 255, 0.05);
+            background: #1a1e29;
             align-self: flex-start;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid #282f42;
             color: #00f2fe;
         }
 
+        /* Input Section */
         .input-section {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            background: #11131b;
+            padding: 20px 30px;
+            border-top: 1px solid #1c202e;
         }
 
         .main-input-row {
             display: flex;
-            gap: 12px;
+            gap: 15px;
         }
 
         .main-input-row input {
             flex: 1;
-            padding: 18px 22px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
+            padding: 20px;
+            background: #1a1e29;
+            border: 1px solid #282f42;
+            border-radius: 16px;
             color: #fff;
-            font-size: 14px;
+            font-size: 16px;
             outline: none;
             transition: 0.3s;
         }
@@ -154,13 +165,14 @@
         }
 
         .main-input-row button {
-            padding: 0 30px;
+            padding: 0 40px;
             background: linear-gradient(135deg, #00f2fe, #4facfe);
             border: none;
-            border-radius: 18px;
-            color: #fff;
+            border-radius: 16px;
+            color: #090a10;
             font-weight: bold;
             cursor: pointer;
+            font-size: 16px;
             transition: 0.3s;
         }
 
@@ -168,82 +180,51 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
         }
-
-        .checkbox-row {
-            display: flex;
-            justify-content: flex-start;
-            padding-left: 10px;
-            margin-bottom: 5px;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            color: #94a3b8;
-            cursor: pointer;
-        }
-
-        .checkbox-label input[type="checkbox"] {
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 6px;
-            background: rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-        }
-
-        .checkbox-label input[type="checkbox"]:checked {
-            background: #00f2fe;
-            border-color: #00f2fe;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
-        }
-
-        .checkbox-label input[type="checkbox"]:checked::after {
-            content: '✓';
-            color: #000;
-            font-weight: bold;
-            font-size: 12px;
-        }
     </style>
 </head>
 <body>
 
-    <div class="bg-text">NovaAI</div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>NovaAI</h2>
+        <div class="menu-item active">Dashboard</div>
+        <div class="menu-item">Create New Video</div>
+        <div class="menu-item">Recent Activity</div>
+        <div class="menu-item">Account</div>
+    </div>
 
-    <div class="app-container">
-        <div class="glass-card">
-            
-            <div class="top-row">
-                <button class="profile-btn" title="Account">👤</button>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div>Dashboard</div>
+            <div class="user-info">
+                <span>User Profile</span>
+                <div class="profile-icon">👤</div>
             </div>
+        </div>
 
+        <!-- Dashboard Content -->
+        <div class="content-area">
             <div class="output-box" id="outputBox">
                 <div class="message ai-message">Hello! I am your secure digital assistant. How can I help you today?</div>
             </div>
+        </div>
 
-            <div class="input-section">
-                
-                <div class="checkbox-row">
-                    <label class="checkbox-label">
-                        <input type="checkbox" checked> Active
-                    </label>
-                </div>
-                <div class="main-input-row">
-                    <input type="text" id="userInput" placeholder="Ask me anything..." />
-                    <button onclick="processAI()">Send</button>
-                </div>
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="main-input-row">
+                <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="handleKey(event)" />
+                <button onclick="processAI()">Send</button>
             </div>
         </div>
     </div>
 
     <script>
+        function handleKey(event) {
+            if (event.key === 'Enter') processAI();
+        }
+
         function processAI() {
             const inputVal = document.getElementById("userInput").value.trim();
             const outputBox = document.getElementById("outputBox");
@@ -279,6 +260,5 @@
             }, 500);
         }
     </script>
-
 </body>
 </html>
