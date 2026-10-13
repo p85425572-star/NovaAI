@@ -13,21 +13,34 @@
         }
 
         body {
-            /* Neon Gradient Background */
             background: linear-gradient(135deg, #0a0a16, #1a0f3a, #4a0072);
-            background-size: cover;
-            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-text {
+            position: absolute;
+            font-size: 10rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.02);
+            z-index: 0;
+            user-select: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            letter-spacing: 10px;
         }
 
         .app-container {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             padding: 20px;
+            z-index: 1;
         }
 
         .glass-card {
@@ -62,11 +75,17 @@
 
         .input-section {
             display: flex;
+            flex-direction: column;
             gap: 12px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
-        .input-section input {
+        .main-input-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .main-input-row input {
             flex: 1;
             padding: 15px 18px;
             background: rgba(255, 255, 255, 0.05);
@@ -78,12 +97,12 @@
             transition: 0.3s;
         }
 
-        .input-section input:focus {
+        .main-input-row input:focus {
             border-color: #00f2fe;
             box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
         }
 
-        .input-section button {
+        .main-input-row button {
             padding: 15px 24px;
             background: linear-gradient(135deg, #00f2fe, #4facfe);
             border: none;
@@ -94,48 +113,33 @@
             transition: 0.3s;
         }
 
-        .input-section button:hover {
+        .main-input-row button:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
         }
 
-        .checklist-section {
-            margin-bottom: 25px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            border-radius: 18px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        .checklist-section h3 {
-            font-size: 14px;
-            color: #e2e8f0;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .check-item {
+        .checkbox-label {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-            font-size: 13px;
+            gap: 8px;
+            font-size: 12px;
             color: #94a3b8;
             cursor: pointer;
-            user-select: none;
         }
 
-        .check-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .check-item input[type="checkbox"] {
+        .checkbox-label input[type="checkbox"] {
             appearance: none;
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 6px;
+            border-radius: 4px;
             background: rgba(0, 0, 0, 0.3);
             cursor: pointer;
             display: flex;
@@ -144,17 +148,42 @@
             transition: 0.2s;
         }
 
-        .check-item input[type="checkbox"]:checked {
+        .checkbox-label input[type="checkbox"]:checked {
             background: #00f2fe;
             border-color: #00f2fe;
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
         }
 
-        .check-item input[type="checkbox"]:checked::after {
+        .checkbox-label input[type="checkbox"]:checked::after {
             content: '✓';
             color: #000;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 10px;
+        }
+
+        .icon-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #00f2fe;
         }
 
         .output-box {
@@ -173,6 +202,8 @@
 </head>
 <body>
 
+    <div class="bg-text">NovaAI</div>
+
     <div class="app-container">
         <div class="glass-card">
             <div class="header">
@@ -181,21 +212,21 @@
             </div>
 
             <div class="input-section">
-                <input type="text" id="userInput" placeholder="Type a query or command..." />
-                <button onclick="processAI()">Run NovaAI</button>
-            </div>
-
-            <div class="checklist-section">
-                <h3>Active Control Protocols</h3>
-                <label class="check-item">
-                    <input type="checkbox" id="chk1" checked> Data Privacy Shield (Active)
-                </label>
-                <label class="check-item">
-                    <input type="checkbox" id="chk2" checked> Secure Local Guardrails
-                </label>
-                <label class="check-item">
-                    <input type="checkbox" id="chk3"> Advanced Sandbox Isolation
-                </label>
+                <div class="main-input-row">
+                    <input type="text" id="userInput" placeholder="Ask me anything..." />
+                    <button onclick="processAI()">Run NovaAI</button>
+                </div>
+                
+                <div class="actions-row">
+                    <label class="checkbox-label">
+                        <input type="checkbox" checked> Active
+                    </label>
+                    
+                    <div class="icon-buttons">
+                        <button class="icon-btn" title="Add Profile">👤</button>
+                        <button class="icon-btn" title="Create New">➕</button>
+                    </div>
+                </div>
             </div>
 
             <div class="output-box" id="outputBox">
@@ -214,7 +245,6 @@
                 return;
             }
 
-            // AI robot response simulation
             let response = "";
             const lowerInput = inputVal.toLowerCase();
 
@@ -223,9 +253,11 @@
             } else if (lowerInput.includes("who are you")) {
                 response = "I am NovaAI, a Next-Gen Secure Guardrails & Control Hub. I operate locally on your device.";
             } else if (lowerInput.includes("how are you")) {
-                response = "I am functioning perfectly within optimal security parameters. Thank you for asking!";
+                response = "I am functioning perfectly within optimal security parameters.";
+            } else if (lowerInput.includes("code") || lowerInput.includes("generate")) {
+                response = "As a generative AI, I can generate code, draft content, and create various digital assets based on your specifications.";
             } else {
-                response = `Processing "${inputVal}"... As an AI, I am ready to assist you with secure data management.`;
+                response = `Processing "${inputVal}"... I can assist by generating comprehensive solutions, code, and content tailored to your needs.`;
             }
 
             outputBox.innerHTML = `NovaAI: <br><br> <span>${response}</span>`;
