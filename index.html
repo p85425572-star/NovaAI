@@ -170,8 +170,8 @@
         }
 
         .output-box {
-            background: #11131b;
-            border: 1px solid #1c202e;
+            background: #090a10; /* Darker to blend in */
+            border: none; /* Removed border */
             border-radius: 20px;
             padding: 30px;
             font-size: 16px;
@@ -191,24 +191,24 @@
         }
 
         .user-message {
-            background: rgba(0, 242, 254, 0.1);
+            background: #11131b;
             align-self: flex-end;
-            border: 1px solid rgba(0, 242, 254, 0.2);
+            border: 1px solid #1c202e;
             color: #fff;
         }
 
         .ai-message {
-            background: #1a1e29;
+            background: #171c28;
             align-self: flex-start;
-            border: 1px solid #282f42;
-            color: #00f2fe;
+            border: none;
+            color: #fff;
         }
 
         /* Input Section */
         .input-section {
-            background: #11131b;
+            background: #090a10; /* Blending with background */
             padding: 20px 30px;
-            border-top: 1px solid #1c202e;
+            border-top: none; /* Removed border */
             width: 100%;
             position: absolute;
             bottom: 0;
@@ -218,31 +218,30 @@
         .main-input-row {
             display: flex;
             gap: 15px;
+            max-width: 800px;
+            margin: 0 auto; /* Centered input */
+            background: #11131b;
+            padding: 10px;
+            border-radius: 30px; /* Rounded corners */
         }
 
         .main-input-row input {
             flex: 1;
-            padding: 20px;
-            background: #1a1e29;
-            border: 1px solid #282f42;
-            border-radius: 16px;
+            padding: 15px;
+            background: transparent;
+            border: none;
             color: #fff;
             font-size: 16px;
             outline: none;
-            transition: 0.3s;
-        }
-
-        .main-input-row input:focus {
-            border-color: #00f2fe;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
         }
 
         .icon-btn {
-            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            background: #1a1e29;
             border: none;
-            border-radius: 16px;
-            color: #090a10;
-            width: 60px;
+            border-radius: 50%; /* Rounded button */
+            color: #00f2fe;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
