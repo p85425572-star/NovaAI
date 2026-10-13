@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaAI - Dashboard</title>
+    <title>NovaAI</title>
     <style>
         * {
             box-sizing: border-box;
@@ -20,40 +20,6 @@
             overflow: hidden;
         }
 
-        /* Sidebar Navigation */
-        .sidebar {
-            width: 260px;
-            background: #11131b;
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            border-right: 1px solid #1c202e;
-        }
-
-        .sidebar h2 {
-            font-size: 24px;
-            color: #00f2fe;
-            margin-bottom: 20px;
-        }
-
-        .menu-item {
-            padding: 12px 16px;
-            background: #1a1e29;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .menu-item:hover, .menu-item.active {
-            background: #00f2fe;
-            color: #090a10;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
-        }
-
         /* Main Content Area */
         .main-content {
             flex: 1;
@@ -68,15 +34,32 @@
             background: #11131b;
             padding: 15px 30px;
             display: flex;
-            justify-content: flex-end; /* Adjusted to align to right */
+            justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #1c202e;
+        }
+
+        .new-chat-btn {
+            background: #1a1e29;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #00f2fe;
+            color: #00f2fe;
+            font-weight: bold;
+        }
+
+        .new-chat-btn:hover {
+            background: #00f2fe;
+            color: #090a10;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
         }
 
         .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .profile-icon {
@@ -91,7 +74,91 @@
             border: 1px solid #00f2fe;
         }
 
-        /* Dashboard View */
+        /* Modal for Recent Activity & Profile */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(9, 10, 16, 0.849);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #11131b;
+            border: 1px solid #1c202e;
+            border-radius: 20px;
+            padding: 40px;
+            width: 500px;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #00f2fe;
+        }
+
+        .modal-content h3 {
+            color: #00f2fe;
+            font-size: 22px;
+        }
+
+        .activity-list {
+            list-style: none;
+            max-height: 200px;
+            overflow-y: auto;
+            color: #a0aec0;
+            font-size: 14px;
+        }
+
+        .activity-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #1c202e;
+        }
+
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .profile-actions input {
+            padding: 15px;
+            background: #1a1e29;
+            border: 1px solid #282f42;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .profile-actions button {
+            padding: 15px;
+            background: #00f2fe;
+            border: none;
+            border-radius: 12px;
+            color: #090a10;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .profile-actions button:hover {
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
+        /* Content Area */
         .content-area {
             flex: 1;
             padding: 40px;
@@ -192,19 +259,31 @@
 </head>
 <body>
 
-    <div class="sidebar">
-        <h2>NovaAI</h2>
-        <div class="menu-item active">Dashboard</div>
-        <div class="menu-item">Create New Video</div>
-        <div class="menu-item">Recent Activity</div>
-        <div class="menu-item">Account</div>
-    </div>
-
     <div class="main-content">
         <div class="top-bar">
+            <div class="new-chat-btn" onclick="location.reload()">New Chat</div>
             <div class="user-info">
                 <span>User Profile</span>
-                <div class="profile-icon">👤</div>
+                <div class="profile-icon" onclick="openModal()">👤</div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal" id="profileModal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                
+                <h3>Recent Activity</h3>
+                <ul class="activity-list" id="activityList">
+                    <li>No recent activity.</li>
+                </ul>
+
+                <h3>Manage Profile</h3>
+                <div class="profile-actions">
+                    <input type="text" id="usernameInput" placeholder="Enter new username" />
+                    <button onclick="updateProfile()">Update Profile</button>
+                    <button onclick="alert('Logged out!')" style="background: #1a1e29; color: #ff0000; border: 1px solid #ff0000;">Log Out</button>
+                </div>
             </div>
         </div>
 
@@ -222,6 +301,39 @@
     </div>
 
     <script>
+        // Modal functions
+        function openModal() {
+            document.getElementById("profileModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("profileModal").style.display = "none";
+        }
+
+        // Profile update
+        function updateProfile() {
+            const username = document.getElementById("usernameInput").value.trim();
+            if (username) {
+                alert(`Username updated to: ${username}`);
+                document.getElementById("usernameInput").value = "";
+            } else {
+                alert("Please enter a username.");
+            }
+        }
+
+        // Activity logging
+        function logActivity(activity) {
+            const activityList = document.getElementById("activityList");
+            const noActivity = activityList.querySelector("li");
+            if (noActivity && noActivity.innerText === "No recent activity.") {
+                activityList.innerHTML = "";
+            }
+            const li = document.createElement("li");
+            li.innerText = activity;
+            activityList.appendChild(li);
+        }
+
+        // Chat functions
         function handleKey(event) {
             if (event.key === 'Enter') processAI();
         }
@@ -236,6 +348,9 @@
             userMsgDiv.className = "message user-message";
             userMsgDiv.innerText = inputVal;
             outputBox.appendChild(userMsgDiv);
+
+            // Log the activity
+            logActivity(`Asked: "${inputVal}"`);
 
             document.getElementById("userInput").value = "";
             outputBox.scrollTop = outputBox.scrollHeight;
