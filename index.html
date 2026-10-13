@@ -20,6 +20,63 @@
             overflow: hidden;
         }
 
+        /* Login Screen */
+        .login-screen {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-card {
+            background: #11131b;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #1c202e;
+            width: 400px;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .login-card h2 {
+            color: #00f2fe;
+            text-align: center;
+        }
+
+        .login-card input {
+            padding: 15px;
+            background: #1a1e29;
+            border: 1px solid #282f42;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .login-card input:focus {
+            border-color: #00f2fe;
+        }
+
+        .login-btn {
+            padding: 15px;
+            background: #00f2fe;
+            border: none;
+            border-radius: 12px;
+            color: #090a10;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
         /* Main Content Area */
         .main-content {
             flex: 1;
@@ -27,6 +84,7 @@
             flex-direction: column;
             height: 100vh;
             position: relative;
+            display: none; /* Hidden by default */
         }
 
         /* Top Navigation Bar */
@@ -258,7 +316,18 @@
 </head>
 <body>
 
-    <div class="main-content">
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <h2>Welcome to NovaAI</h2>
+            <input type="text" id="username" placeholder="Username" />
+            <input type="password" id="password" placeholder="Password" />
+            <button class="login-btn" onclick="handleLogin()">Log In</button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content" id="mainContent">
         <div class="top-bar">
             <div class="new-chat-btn" onclick="location.reload()">New Chat</div>
             <div class="user-info">
@@ -300,6 +369,19 @@
     </div>
 
     <script>
+        // Login function
+        function handleLogin() {
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            if (username !== "" && password !== "") {
+                document.getElementById("loginScreen").style.display = "none";
+                document.getElementById("mainContent").style.display = "flex";
+            } else {
+                alert("Please enter both username and password.");
+            }
+        }
+
         // Modal functions
         function openModal() {
             document.getElementById("profileModal").style.display = "flex";
@@ -358,14 +440,16 @@
                 const lowerInput = inputVal.toLowerCase();
                 let response = "";
 
-                if (lowerInput.includes("what is ai") || lowerInput.includes("artificial intelligence")) {
+                if (lowerInput.includes("who are you")) {
+                    response = "I am NovaAI, your personal assistant capable of generating comprehensive solutions, code, and content tailored to your needs.";
+                } else if (lowerInput.includes("what is ai") || lowerInput.includes("artificial intelligence")) {
                     response = "Artificial Intelligence (AI) refers to the simulation of human intelligence in machines programmed to think and learn like humans.";
                 } else if (lowerInput.includes("code") || lowerInput.includes("generate")) {
                     response = "As a generative AI, I can generate code, draft content, and create various digital assets based on your specifications.";
                 } else if (lowerInput.includes("intensity")) {
                     response = "Intensity generally refers to the measurable amount of a property, such as force, energy, or brightness, per unit of area or volume.";
                 } else {
-                    response = `You asked: "${inputVal}". This is an interesting question, and I can assist by generating comprehensive solutions tailored to your needs.`;
+                    response = "As NovaAI, I can assist by generating comprehensive knowledge and tailored solutions for any topic you inquire about.";
                 }
 
                 const aiMsgDiv = document.createElement("div");
