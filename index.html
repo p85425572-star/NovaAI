@@ -68,7 +68,7 @@
             background: #11131b;
             padding: 15px 30px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end; /* Adjusted to align to right */
             align-items: center;
             border-bottom: 1px solid #1c202e;
         }
@@ -202,7 +202,6 @@
 
     <div class="main-content">
         <div class="top-bar">
-            <div>Dashboard</div>
             <div class="user-info">
                 <span>User Profile</span>
                 <div class="profile-icon">👤</div>
@@ -215,6 +214,7 @@
 
         <div class="input-section">
             <div class="main-input-row">
+                <button class="icon-btn" onclick="alert('Photo upload coming soon!')">+</button>
                 <input type="text" id="userInput" placeholder="Ask anything..." onkeypress="handleKey(event)" />
                 <button class="icon-btn" onclick="processAI()">➔</button>
             </div>
