@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaAI - Smart Hub</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* Neon Gradient Background */
+            background: linear-gradient(135deg, #0a0a16, #1a0f3a, #4a0072);
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+            background: linear-gradient(to right, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #b3b9c1;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .input-section input {
+            flex: 1;
+            padding: 15px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-section input:focus {
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+        }
+
+        .input-section button {
+            padding: 15px 24px;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            border: none;
+            border-radius: 14px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .input-section button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .checklist-section {
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .checklist-section h3 {
+            font-size: 14px;
+            color: #e2e8f0;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            color: #94a3b8;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .check-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .check-item input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .check-item input[type="checkbox"]:checked {
+            background: #00f2fe;
+            border-color: #00f2fe;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+
+        .check-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            color: #000;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .output-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 18px;
+            font-size: 13px;
+            color: #00f2fe;
+            min-height: 80px;
+            max-height: 150px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="glass-card">
+            <div class="header">
+                <h1>NovaAI</h1>
+                <p>Next-Gen Secure Guardrails & Control Hub</p>
+            </div>
+
+            <div class="input-section">
+                <input type="text" id="userInput" placeholder="Type a query or command..." />
+                <button onclick="processAI()">Run NovaAI</button>
+            </div>
+
+            <div class="checklist-section">
+                <h3>Active Control Protocols</h3>
+                <label class="check-item">
+                    <input type="checkbox" id="chk1" checked> Data Privacy Shield (Active)
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" id="chk2" checked> Secure Local Guardrails
+                </label>
+                <label class="check-item">
+                    <input type="checkbox" id="chk3"> Advanced Sandbox Isolation
+                </label>
+            </div>
+
+            <div class="output-box" id="outputBox">
+                System Initialized. NovaAI is online, running securely.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function processAI() {
+            const inputVal = document.getElementById("userInput").value.trim();
+            const outputBox = document.getElementById("outputBox");
+            
+            if (inputVal === "") {
+                outputBox.innerHTML = "<span style='color: #ff4757;'>Please enter a command to process!</span>";
+                return;
+            }
+
+            outputBox.innerHTML = `Processing "<span style='color: #fff;'>${inputVal}</span>" via NovaAI Engine... <br><br><b>Status:</b> Safe & Secure. All local checks passed successfully!`;
+            
+            document.getElementById("userInput").value = "";
+        }
+    </script>
+
+</body>
+</html>
