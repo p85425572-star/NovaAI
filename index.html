@@ -70,7 +70,7 @@
             flex: 1;
             display: flex;
             height: 100vh;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         /* Sidebar */
@@ -214,7 +214,6 @@
 </head>
 <body>
 
-    <!-- Login Screen -->
     <div class="login-screen" id="loginScreen">
         <div class="login-card">
             <h2>Sign in to NovaAI</h2>
@@ -226,17 +225,12 @@
         </div>
     </div>
 
-    <!-- Main Content Area -->
     <div class="main-content" id="mainContent">
         <div class="sidebar">
             <button class="new-chat-btn" onclick="location.reload()"><span>➕</span> <span>New Chat</span></button>
             <div class="recent-section">
                 <div class="recent-title">Recent</div>
-                <ul class="history-list">
-                    <li class="history-item">How to use NovaAI?</li>
-                    <li class="history-item">Coding Assistance</li>
-                    <li class="history-item">Learning Intensity</li>
-                </ul>
+                <ul class="history-list"></ul>
             </div>
         </div>
 
@@ -254,6 +248,12 @@
     </div>
 
     <script>
+        let chatHistory = JSON.parse(localStorage.getItem('novaAiHistory')) || [];
+
+        window.onload = function() {
+            renderHistory();
+        };
+
         function handleLogin(provider) {
             console.log(`Signed in with ${provider}`);
             document.getElementById("loginScreen").style.display = "none";
@@ -301,7 +301,31 @@
                 aiMsg.innerText = response;
                 chatMessages.appendChild(aiMsg);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                saveToHistory(inputVal);
             }, 500);
+        }
+
+        function saveToHistory(query) {
+            if (!chatHistory.includes(query)) {
+                chatHistory.unshift(query);
+                localStorage.setItem('novaAiHistory', JSON.stringify(chatHistory));
+                renderHistory();
+            }
+        }
+
+        function renderHistory() {
+            const historyList = document.querySelector('.history-list');
+            historyList.innerHTML = '';
+            chatHistory.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'history-item';
+                li.innerText = item;
+                li.onclick = function() {
+                  document.getElementById("userInput").value = item;
+                };
+                historyList.appendChild(li);
+            });
         }
     </script>
 </body>
