@@ -170,8 +170,8 @@
         }
 
         .output-box {
-            background: #090a10; /* Darker to blend in */
-            border: none; /* Removed border */
+            background: #090a10;
+            border: none;
             border-radius: 20px;
             padding: 30px;
             font-size: 16px;
@@ -206,9 +206,9 @@
 
         /* Input Section */
         .input-section {
-            background: #090a10; /* Blending with background */
+            background: #090a10;
             padding: 20px 30px;
-            border-top: none; /* Removed border */
+            border-top: none;
             width: 100%;
             position: absolute;
             bottom: 0;
@@ -219,10 +219,10 @@
             display: flex;
             gap: 15px;
             max-width: 800px;
-            margin: 0 auto; /* Centered input */
+            margin: 0 auto;
             background: #11131b;
             padding: 10px;
-            border-radius: 30px; /* Rounded corners */
+            border-radius: 30px;
         }
 
         .main-input-row input {
@@ -238,7 +238,7 @@
         .icon-btn {
             background: #1a1e29;
             border: none;
-            border-radius: 50%; /* Rounded button */
+            border-radius: 50%;
             color: #00f2fe;
             width: 50px;
             height: 50px;
@@ -355,15 +355,17 @@
             outputBox.scrollTop = outputBox.scrollHeight;
 
             setTimeout(() => {
-                let response = "";
                 const lowerInput = inputVal.toLowerCase();
+                let response = "";
 
                 if (lowerInput.includes("what is ai") || lowerInput.includes("artificial intelligence")) {
-                    response = "Artificial Intelligence (AI) refers to the simulation of human intelligence in machines programmed to think and learn like humans. It involves tasks like problem-solving, reasoning, and learning.";
+                    response = "Artificial Intelligence (AI) refers to the simulation of human intelligence in machines programmed to think and learn like humans.";
                 } else if (lowerInput.includes("code") || lowerInput.includes("generate")) {
                     response = "As a generative AI, I can generate code, draft content, and create various digital assets based on your specifications.";
+                } else if (lowerInput.includes("intensity")) {
+                    response = "Intensity generally refers to the measurable amount of a property, such as force, energy, or brightness, per unit of area or volume.";
                 } else {
-                    response = "I can assist by generating comprehensive solutions, code, and content tailored to your needs.";
+                    response = `You asked: "${inputVal}". This is an interesting question, and I can assist by generating comprehensive solutions tailored to your needs.`;
                 }
 
                 const aiMsgDiv = document.createElement("div");
