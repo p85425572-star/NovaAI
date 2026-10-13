@@ -99,6 +99,7 @@
             display: flex;
             flex-direction: column;
             gap: 30px;
+            max-height: calc(100vh - 150px);
         }
 
         .output-box {
@@ -142,6 +143,9 @@
             padding: 20px 30px;
             border-top: 1px solid #1c202e;
             width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
         }
 
         .main-input-row {
@@ -166,19 +170,21 @@
             box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
         }
 
-        .main-input-row button {
-            padding: 0 40px;
+        .icon-btn {
             background: linear-gradient(135deg, #00f2fe, #4facfe);
             border: none;
             border-radius: 16px;
             color: #090a10;
-            font-weight: bold;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 20px;
             transition: 0.3s;
         }
 
-        .main-input-row button:hover {
+        .icon-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
         }
@@ -186,7 +192,6 @@
 </head>
 <body>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <h2>NovaAI</h2>
         <div class="menu-item active">Dashboard</div>
@@ -195,9 +200,7 @@
         <div class="menu-item">Account</div>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
-        <!-- Top Bar -->
         <div class="top-bar">
             <div>Dashboard</div>
             <div class="user-info">
@@ -206,18 +209,14 @@
             </div>
         </div>
 
-        <!-- Dashboard Content -->
         <div class="content-area">
-            <div class="output-box" id="outputBox">
-                <div class="message ai-message">Hello! I am your secure digital assistant. How can I help you today?</div>
-            </div>
+            <div class="output-box" id="outputBox"></div>
         </div>
 
-        <!-- Input Section -->
         <div class="input-section">
             <div class="main-input-row">
-                <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="handleKey(event)" />
-                <button onclick="processAI()">Send</button>
+                <input type="text" id="userInput" placeholder="Ask anything..." onkeypress="handleKey(event)" />
+                <button class="icon-btn" onclick="processAI()">➔</button>
             </div>
         </div>
     </div>
